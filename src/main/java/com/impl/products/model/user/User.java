@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +17,8 @@ import lombok.Setter;
 @Table(name = "user")
 public class User implements Serializable {
 
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(unique = true, name = "user_name", nullable = false)
@@ -34,5 +35,14 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdAt = new Date();
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
 }
