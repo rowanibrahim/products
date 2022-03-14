@@ -30,11 +30,11 @@ public class ProductController extends AbstractController {
         params.setLimit(limit);
         params.setOffset(offset);
         User user = getUserDetails(authentication).getUser();
-        return service.getAllProducts(user, params);
+        return service.getAllProducts(params);
     }
 
     @PostMapping("/product/upload")
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ResponseMessage> uploadFile(Authentication authentication,@RequestParam("file") MultipartFile file) {
         String message = "";
         if (ExcelHelper.hasExcelFormat(file)) {
             try {
