@@ -36,7 +36,7 @@ public class User implements Serializable {
     @CreatedDate
     private Date createdAt = new Date();
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
