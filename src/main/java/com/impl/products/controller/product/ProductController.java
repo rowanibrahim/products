@@ -50,10 +50,10 @@ public class ProductController extends AbstractController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
 
-    @PutMapping("/product")
-    private ResponseEntity<ResponseMessage> activateProduct(Authentication authentication, @PathVariable long id,
+    @PutMapping("/product/{id}")
+    private ResponseEntity<ResponseMessage> activateProduct(Authentication authentication, @PathVariable String id,
                                                             @RequestBody ProductRequestBody body) {
-        service.activateProduct(id, body);
+        service.activateProduct(Long.parseLong(id), body);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage("Product Updated successfully!"));
 
     }
