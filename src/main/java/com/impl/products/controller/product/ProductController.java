@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@RestController
 @CrossOrigin
+@RestController
 public class ProductController extends AbstractController {
     @Autowired
     ProductService service;
