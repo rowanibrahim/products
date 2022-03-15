@@ -4,6 +4,7 @@ import com.impl.products.dto.ProductRequestBody;
 import com.impl.products.dto.RequestParams;
 import com.impl.products.helper.ExcelHelper;
 import com.impl.products.model.product.Product;
+import com.impl.products.model.user.User;
 import com.impl.products.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,8 @@ public class ProductService {
     @Value("${role.admin}")
     private String roleAdmin;
 
-    public List<Product> getAllProducts(RequestParams params){
+    public List<Product> getAllProducts(User user, RequestParams params){
+
         Pageable pageable = PageRequest.of(params.getOffset(), params.getLimit());
         List<Product> products = new ArrayList<Product>();
         repository.findAll(pageable).forEach(product -> {

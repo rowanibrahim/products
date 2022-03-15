@@ -4,6 +4,7 @@ import com.impl.products.controller.security.AbstractController;
 import com.impl.products.dto.RequestParams;
 import com.impl.products.dto.ResponseMessage;
 import com.impl.products.dto.ProductRequestBody;
+import com.impl.products.dto.UserTypeEnum;
 import com.impl.products.helper.ExcelHelper;
 import com.impl.products.model.product.Product;
 import com.impl.products.model.user.User;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-
 @CrossOrigin
 @RestController
 public class ProductController extends AbstractController {
@@ -27,10 +27,12 @@ public class ProductController extends AbstractController {
     private List<Product> getAllProducts(Authentication authentication,@RequestParam(name = "limit", required = true) int limit,
                                          @RequestParam(name = "offset", required = true) int offset) {
         RequestParams params = new RequestParams();
+        User user = getUserDetails(authentication).getUser();
+
         params.setLimit(limit);
         params.setOffset(offset);
-        User user = getUserDetails(authentication).getUser();
-        return service.getAllProducts(params);
+
+        return service.getAllProducts(user, params);
     }
 
     @PostMapping("/product/upload")

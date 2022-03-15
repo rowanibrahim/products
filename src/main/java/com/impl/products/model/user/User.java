@@ -1,6 +1,7 @@
 package com.impl.products.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.impl.products.dto.UserTypeEnum;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -26,6 +27,9 @@ public class User implements Serializable {
 
     @Column(name="full_name", nullable = false)
     private String fullName;
+
+    @Column(name="user_type", nullable = false)
+    private Enum<UserTypeEnum> userType;
 
     @JsonIgnore
     @Column(name = "password", nullable = false)

@@ -27,8 +27,10 @@ public class JwtAuthenticationController {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
+        String userType = String.valueOf(userDetailsService.getUserByUsername(
+                authenticationRequest.getUsername()).getUserType());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(new JwtResponse(token, userType));
     }
     private void authenticate(String username, String password) throws Exception {
         try {

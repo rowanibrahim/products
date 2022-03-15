@@ -1,5 +1,6 @@
 package com.impl.products.setup;
 
+import com.impl.products.dto.UserTypeEnum;
 import com.impl.products.model.user.Privilege;
 import com.impl.products.model.user.Role;
 import com.impl.products.model.user.User;
@@ -72,6 +73,7 @@ public class SetupDataLoader implements
         user.setFullName("Admin");
         user.setPassword(passwordEncoder.encode("test"));
         user.setUserName("admin");
+        user.setUserType(UserTypeEnum.ADMIN);
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
         return user;
@@ -84,6 +86,7 @@ public class SetupDataLoader implements
         user.setFullName("Viewer");
         user.setPassword(passwordEncoder.encode("test"));
         user.setUserName("viewer");
+        user.setUserType(UserTypeEnum.USER);
         user.setRoles(Arrays.asList(userRole));
         userRepository.save(user);
         return user;
